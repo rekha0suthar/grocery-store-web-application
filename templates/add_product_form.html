@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Product Form</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background-color: rgba(185, 235, 135, 0.326);
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    label {
+        color: black;
+        font-size: 20px;
+    }
+
+    div {
+        background-color: white;
+        width: 600px;
+        height: 850px;
+        padding: 30px;
+        border-radius: 30px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+    
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid gray;
+        border-radius: 5px;
+        background-color: white;
+        font-size: 18px;
+    }
+
+    input::placeholder {
+        font-size: 18px;
+    }
+
+    input[type=text] {
+        font-size: 18px;
+    }
+
+    input[type=date] {
+        font-size: 18px;
+    }
+
+    input[type=number] {
+        font-size: 18px;
+    }
+
+    input[type=submit] {
+        font-size: 18px;
+        color: white;
+        background-color: blue;
+        margin-top: 30px;
+    }
+
+    input[type=submit]:hover {
+        cursor: pointer;
+    }
+
+    div h1 {
+        text-align: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div>
+        <h1>Add Product</h1>
+        <form method="POST" action="/admin/add_product" enctype="mutlipart/form-data">
+            <label for="name">Product Name:</label><br>
+            <input type="text" name="name" id="name" placeholder="Enter product name.." required><br><br>
+
+            <label for="price">Product Price:</label><br>
+            <input type="number" name="price" id="price" placeholder="Enter product price..." required><br><br>
+
+            <label for="unit">Product Unit:</label><br>
+            <input type="text" name="unit" id="unit" placeholder="Enter product unit like Kg, Litre, item, etc.." required><br><br>
+
+            <label for="expiry_date">Product Expiry Date:</label><br>
+            <input type="date" name="expiry_date" id="expiry_date" required><br><br>
+
+            <label for="image">Product Image:</label><br>
+            <input type="text" name="image_url" id="image_url" placeholder="Enter product image url.." required><br><br>
+
+            <label for="price">Product Quantity:</label><br>
+            <input type="number" name="quantity" id="quantity" placeholder="Enter product quantity..." min="0" required><br><br>
+
+            <label for="category">Product Category:</label>
+            <select name="category" id="category">
+                {% if categories %}
+                    {% for category in categories %}
+                        <option value="{{ category[0] }}">{{ category[1] }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>No Category Found</option>
+                {% endif %}
+            </select>
+
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+</body>
+
+</html>

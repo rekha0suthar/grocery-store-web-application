@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Category</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: rgba(185, 235, 135, 0.326);
+        }
+
+        h {
+            font-size: 25px;
+        }
+
+        label {
+            color: black;
+            font-size: 20px;
+
+        }
+
+        div {
+            background-color: white;
+            width: 600px;
+            height: 250px;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        input::placeholder {
+            font-size: 18px;
+        }
+
+        input[type=text] {
+            font-size: 18px;
+        }
+
+        input[type=number] {
+            font-size: 18px;
+        }
+
+        input[type=submit] {
+            font-size: 18px;
+            color: white;
+            background-color: blue;
+
+        }
+
+        input[type=submit]:hover {
+            cursor: pointer;
+        }
+
+        div h1 {
+            text-align: center;
+            align-items: center;
+
+        }
+    </style>
+
+<script>
+    function updateCategory(categoryId) {
+        const newName = document.getElementById('name').value;
+
+        console.log(categoryId)
+
+        fetch(`/category/update/${categoryId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: newName})
+        })
+        .then(response => {
+            if (response.ok) {
+                // Product updated successfully
+                window.location.href = '/admin/dashboard';
+            } else {
+                // Error occurred while updating product
+                console.error('Error updating Product:', response.status)
+            }
+        }).catch(error => {
+            console.error('Error updating product:', error)
+        });
+    }
+</script>
+</head>
+
+<body>
+    <div>
+        <h1>Edit Category</h1>
+        <form method="PUT" action="/admin/dashboard" onsubmit="event.preventDefault(); updateCategory('{{ category[0]}}')" enctype="mutlipart/form-data">
+            <label for="name">Category Name:</label><br>
+            <input type="text" name="category" id="name" value="{{ category[1] }}" required><br><br>
+
+            <input type="submit" value="Edit Category">
+        </form>
+    </div>
+</body>
+
+</html>

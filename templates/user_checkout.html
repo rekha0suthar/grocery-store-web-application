@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Checkout</title>
+        <!-- Function to complete order-->
+
+    <script>
+        // Function to handle the form submission
+        function completeUserOrder(event) {
+            event.preventDefault();
+            // Make an api call to complete order
+            if (confirm('Are you sure you want to pay and complete your order?')) {
+                fetch('/user/order/complete', {
+                    method: 'POST',
+                    body: new FormData(event.target)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Your order completed successfulyy!!')
+                        location.reload()
+                        window.location.href = '/user/dashboard'
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EAEAEA;
+            display: flex;
+            justify-content: center;
+            margin-top: 15%;
+            align-items: center;
+        }
+        div {
+            background-color: white;
+            width: 500px;
+            height: 200px;
+            border-radius: 10px;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div p {
+            font-size: 26px;
+            text-align: center;
+        }
+
+        input {
+            background-color: blue;
+            width: 100%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        input:hover {
+            cursor: pointer;
+        }
+
+         button {
+            background-color: blue;
+            width: 100%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 5px;
+            font-size: 18px;
+            color: white;
+            text-transform: uppercase;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+    
+    </style>
+    </head>
+    
+    <body>
+        <div>
+            <p>
+                Pay : <strong>{{ total_price}}</strong> and complete your order!
+            </p>
+                <form id="user-complete-order-form" action="/user/order/complete" method="POST" onsubmit="event.preventDefault(); completeUserOrder(event)">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ user_id }}">
+                    <button type="submit">Complete Order</button>
+                </form>     
+        </div>
+
+    </body>
+</html>

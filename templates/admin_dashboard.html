@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DashBoard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EAEAEA;
+
+        }
+
+        .topbar {
+            overflow: hidden;
+            background-color: #0c0c0c;
+            position: static;
+            float: none;
+            display: flex;
+        }
+
+        h1 {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            font-size: 26px;
+        }
+
+        .topbar .search-container {
+            display: flex;
+            margin-top: 20px;
+            margin-left: 250px;
+
+        }
+
+        .topbar input[type=text] {
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+            border-radius: 4px 0px 0px 4px;
+            flex: 1 1 0px;
+            border-top: 1px solid transparent;
+            background: #fff;
+            white-space: nowrap;
+            width: 500px;
+            height: 40px;
+        }
+
+        .topbar .search-container button {
+            float: right;
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: orange;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            height: 40px;
+            border-radius: 0px 4px 4px 0px;
+        }
+
+        .topbar .search-container button:hover {
+            background: #ccc;
+        }
+
+        .topbar .admin-right-bar {
+            margin-top: 35px;
+            margin-left: 650px;
+            padding-right: 0;
+
+        }
+
+        .topbar .admin-right-bar a {
+            text-align: center;
+            padding: 14px 16px;
+            font-size: 22px;
+            color: white;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .topbar .admin-right-bar a:hover {
+            color: orangered;
+            cursor: pointer;
+        }
+
+        .logout {
+            color: white;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        h2,
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: table;
+        }
+
+        .product-side li {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            align-items: center;
+            background-color: white;
+            width: 250px;
+            height: 320px;
+            box-shadow: .8px .9px 3px grey;
+        }
+
+        .product-side li:hover {
+            cursor: pointer;
+            box-shadow: 1px 8px 20px grey;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 7px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .product-expiry {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .add-item {
+            color: green;
+            border: 1px solid #007129;
+            background-color: transparent;
+            border-radius: 4px;
+            padding: 2px 12px;
+        }
+
+        .add-item:hover {
+            cursor: pointer;
+        }
+
+        .product-list {
+            margin: 0px;
+        }
+
+        .edit-button {
+            color: blue;
+            border: 1px solid blue;
+            background-color: transparent;
+            border-radius: 4px;
+            padding: 2px 10px;
+            margin-left: 10px;
+        }
+
+        .edit-button a {
+            text-decoration: none;
+
+        }
+
+        .delete-button {
+            color: red;
+            border: 1px solid red;
+            background-color: transparent;
+            border-radius: 4px;
+            padding: 2px 10px;
+            margin-left: 10px;
+        }
+
+        .delete-button:hover {
+            cursor: pointer;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .category-side {
+            width: 380px;
+            position: fixed;
+            left: 0%;
+            height: 100%;
+            padding: 20px 0;
+            transition: all 0.5s ease;
+            background-color: white;
+            margin-top: -20px;
+        }
+
+        .category-side li{
+            margin-left: 20px;
+            line-height: 30px;
+            padding-bottom: 10px;
+            display: flex;
+            width: 100%;
+        }
+
+        .category-side li:hover {
+            cursor: pointer;
+        }
+
+        .category-side li .category {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+            width: 30%;
+
+        }
+
+        .category-side li .category:hover {
+            color: orangered;
+        }
+
+        .category-side h2 {
+            margin-left: 20px;
+        }
+
+        .product-side {
+            width: calc(100% - 380px);
+            margin-left: 400px;
+            transition: all 0.5s ease;
+            margin-top: 20px;
+        }
+
+        .product-side h2 {
+            margin-left: 20px;
+            font-size: 28px;
+        }
+
+        .edit-icon {
+            color: blue;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 110px;
+            font-size: 18px;
+        }
+
+        .delete-icon {
+            color: red; 
+            border: none; 
+            background-color: transparent; 
+            font-size: 18px; 
+            margin-left: 20px;
+        } 
+
+        .delete-icon:hover {
+            cursor: pointer;
+        }
+
+    </style>
+<!-- Function to add product in cart -->
+    <script>
+        function addToCart(productId, productName, productPrice, productUnit, productImage, id) {
+            fetch('/admin/add_to_cart', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId, productName: productName, productPrice: productPrice, productUnit: productUnit, productImage: productImage, id:id })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Product added to cart successfully!');
+                    } else {
+                        alert('Failed to add product to cart or Product already exist in cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error: ', error);
+                    alert('An error occuried while adding product to cart.');
+                });
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product')) {
+                fetch(`/product/delete/${productId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Product deleted successfully
+                        console.log('Product Deleted')
+                        const productElement = document.getElementById(`product-${productId}`);
+                        if (productElement) {
+                            productElement.remove()
+                        }
+                    } else {
+                        // Error occurred while deleting product
+                        console.error('Error deleting product:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting product:', error)
+                })
+            }
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm('Are you sure you want to delete this category')) {
+                fetch(`/category/delete/${categoryId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Product deleted successfully
+                        console.log('Category Deleted')
+                        const categoryElement = document.getElementById(`category-${categoryId}`);
+                        if (categoryElement) {
+                            categoryElement.remove()
+                            location.reload()
+                        }
+                    } else {
+                        // Error occurred while deleting product
+                        console.error('Error deleting product:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting product:', error)
+                })
+            }
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <!-- Top Bar Section -->
+    <div class="topbar">
+        <h1>G Store</h1>
+        <div class="search-container">
+            <form method="GET" action="/admin/search">
+                <input type="text" id="query" name="query" placeholder="Search..">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="admin-right-bar">
+            <a href="{{url_for('addProductForm')}}">Add Product</a>
+            <a href="{{url_for('addCategoryForm')}}">Add Category</a>
+            <a href="{{ url_for('admin_cart') }}" class="logout">Cart</a>
+            <a href="{{ url_for('admin_orders') }}" class="logout">Orders</a>
+            <a href="{{url_for('logout')}}" class="logout">Logout</a>
+        </div>
+        
+    </div>
+
+    <!-- Product List Display Section -->
+    <div class="product-list">
+        <!-- Category Section -->
+        <div class="category-side">
+            <h2>All Categories</h2>
+        <ul>
+            {% for category in categories %}             
+                <li id="category-{{ category[0] }}">
+                    <a href="/admin/category_product/{{ category[0] }}" class="category">{{ category[1] }}</a> 
+                    <a href="/admin/edit_category_form/{{ category[0] }}" class="edit-icon"> 
+                        Edit
+                    </a> 
+                    <button type="submit" onclick="deleteCategory('{{ category[0] }}')" class="delete-icon">Delete</button>
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+        <!-- Product Section -->
+            <div class="product-side">
+                <h2>All Products</h2>
+                <ul>
+                    {% for product in products %}
+                        <li id="product-{{ product[0]}}">
+                            <img class="product-image" src="{{ product[5] }}" alt="{{ product[5] }}">
+                            <div class="product-details">
+                                <h3 class="product-name">{{ product[1] }}</h3>
+                                <p class="product-price">Price: ₹{{ product[2] }} / {{ product[3] }}</p>
+                                <p class="product-expiry">Expiry Date: {{ product[4] }}</p>
+                                <p class="product-expiry">Quantity: {{ product[6] }} </p>
+                                <div class="buttons">
+                                    {% if product[6] > 0 %}
+                                        <button class="add-item" onclick="addToCart('{{ product[0] }}', '{{ product[1]}}', '{{ product[2]}}', '{{ product[3]}}', '{{ product[5] }}', '{{ id }}')">ADD</button>
+                                    {% else %}
+                                        <button style="background-color: transparent; border: 1px solid black; border-radius: 4px;">SOLD</button>
+                                    {% endif %}
+                                    {% if role == 'admin' %}
+                                        <button class="edit-button"><a href="/product/edit/{{ product.id }}">EDIT</a></button>
+                                        <button class="delete-button" type="submit"
+                                                onclick="deleteProduct('{{ product.id }}')">DELETE</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>                            
+                    {% endfor %}
+            </ul></div>
+    </div>
+
+</body>
+
+</html>

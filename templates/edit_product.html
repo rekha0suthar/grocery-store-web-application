@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Product</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            margin-top: 5%;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: rgba(185, 235, 135, 0.326);
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        label {
+            color: black;
+            font-size: 20px;
+
+        }
+
+        div {
+            background-color: white;
+            width: 600px;
+            height: 850px;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        input::placeholder {
+            font-size: 18px;
+        }
+
+        input[type=text] {
+            font-size: 18px;
+        }
+
+        input[type=number] {
+            font-size: 18px;
+        }
+
+        input[type=submit] {
+            font-size: 18px;
+            color: white;
+            background-color: blue;
+            margin-top: 30px;
+
+        }
+
+        input[type=submit]:hover {
+            cursor: pointer;
+        }
+
+        div h1 {
+            text-align: center;
+            align-items: center;
+
+        }
+
+        select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid gray;
+        border-radius: 5px;
+        background-color: white;
+        font-size: 18px;
+    }
+    </style>
+
+    <script>
+        function updateProduct(productId) {
+            const newName = document.getElementById('name').value;
+            const newPrice = document.getElementById('price').value;
+            const newUnit = document.getElementById('unit').value;
+            const newExpiryDate = document.getElementById('expiry_date').value;
+            const newImageUrl = document.getElementById('image_url').value;
+            const newQuantity = document.getElementById('quantity').value;
+            const newCategory = document.getElementById('category').value;
+
+            const data = {
+                name: newName,
+                price: newPrice,
+                unit: newUnit,
+                expiry_date: newExpiryDate,
+                image_url: newImageUrl,
+                quantity: newQuantity,
+                category_id: newCategory
+            };
+            console.log(productId, newExpiryDate, newImageUrl, newPrice, newUnit, newName, newQuantity)
+
+            fetch(`/product/update/${productId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Product updated successfully
+                    window.location.href = '/admin/dashboard';
+                } else {
+                    // Error occurred while updating product
+                    console.error('Error updating Product:', response.status)
+                }
+            }).catch(error => {
+                console.error('Error updating product:', error)
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <h1>Edit Product</h1>
+        <form action="/admin/dashboard" method="PUT"  onsubmit="event.preventDefault(); updateProduct('{{ product[0]}}')" enctype="mutlipart/form-data">
+            <label for="name">Product Name:</label><br>
+            <input type="text" name="name" id="name" value="{{ product.name}}"><br><br>
+
+            <label for="price">Product Price:</label><br>
+            <input type="number" name="price" id="price" value="{{ product.price }}"><br><br>
+
+            <label for="unit">Product Unit:</label><br>
+            <input type="text" name="unit" id="unit" value="{{ product.unit}}"><br><br>
+
+            <label for="expiry_date">Product Expiry Date:</label><br>
+            <input type="date" id="expiry_date" name="expiry_date" value="{{ product.expiry_date}}"><br><br>
+
+            <label for="image">Product Image:</label><br>
+            <input type="text" name="image_url" id="image_url" value="{{ product.image_path}}"><br><br>
+
+            <label for="price">Product Quantity:</label><br>
+            <input type="number" name="quantity" id="quantity" value="{{ product.quantity}}" min="0" required><br><br>
+
+            <label for="category">Product Category:</label>
+            <select name="category" id="category">
+                {% for category in categories %}
+                    <option id="category" value="{{ category[0] }}">{{ category[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Update Product">
+        </form>
+    </div>
+</body>
+
+</html>

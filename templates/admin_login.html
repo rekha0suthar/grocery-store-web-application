@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Admin Login
+    </title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            margin-top: 15%;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: rgb(246, 243, 236);
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        label {
+            color: black;
+            font-size: 20px;
+
+        }
+
+        div {
+            background-color: white;
+            width: 400px;
+            height: 350px;
+            padding: 20px 40px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+            /* position: relative; */
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        input::placeholder {
+            font-size: 15px;
+        }
+
+        input[type=submit] {
+            font-size: 18px;
+            color: white;
+            background-color: blue;
+            margin-bottom: 20px;
+
+        }
+
+        div h1 {
+            text-align: center;
+            align-items: center;
+
+        }
+
+        a {
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>
+            Admin Login
+        </h1>
+        <form action="/admin/login" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username" placeholder="Enter your username..." required><br><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" placeholder="Enter your password..." required><br><br>
+
+            <input type="submit" value="login">
+            <a href="{{url_for('admin_register')}}">Don't have an account? Click here to Register</a>
+
+        </form>
+    </div>
+</body>
+
+</html>
